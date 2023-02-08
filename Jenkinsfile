@@ -13,7 +13,7 @@ pipeline {
         stage('SCM-Checkout') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/LoksaiETA/Java-mvn-app2.git'
+                git 'https://github.com/manju65char/Java-mvn-app2.git'
 
             }
               post {
@@ -39,8 +39,7 @@ pipeline {
         stage('Deploy to QA AppServer') {
             steps {
 				script {
-					sshPublisher(publishers: [sshPublisherDesc(configName: 'QA-Server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/mvn-hello-world.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-				}
+                                         sshPublisher(publishers: [sshPublisherDesc(configName: 'QA_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/maven-helloworld.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])				}
             }
               post {
                 success {
