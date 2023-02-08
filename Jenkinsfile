@@ -23,18 +23,13 @@ pipeline {
                 }
               }
 			}
-        stage('Build') {
+        stage('Build with Maven') {
             steps {
-                // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                sh 'mvn compile'
+                sh 'mvn test'
+                sh 'mvn package'
             }
-              post {
-                failure {
-                  sh "echo 'Send mail on failure'"
-                  mail to:"dummyid@gmail.com", from: 'dummyid@gmail.com', subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed."
-                }
-              }
-			}
+        }
 
         stage('Deploy to QA AppServer') {
             steps {
